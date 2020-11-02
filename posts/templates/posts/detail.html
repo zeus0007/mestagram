@@ -1,0 +1,20 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mestagram</title>
+        <link rel="stylesheet" href="{% static 'posts/style.css' %}" >
+    </head>
+    <body>
+        <h1>Mestagram</h1>
+        <div><a href="{%url 'posts:index'%}">피드로 돌아가기</a></div>
+        <div>
+            <div>{{post.author}}</div>
+            <img width='300' src="{% static 'posts/images/sample.png'%}" />
+            <div>{{post.created_at}}</div>
+            <div>{{post.content}}</div>
+            <div><a href="">삭제하기</a></div>
+            <div><a href="">수정하기</a></div>
+        </div>
+    </body>
+</html>
