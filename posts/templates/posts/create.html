@@ -1,0 +1,23 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mestagram</title>
+    </head>
+    <body>
+        <h1>Mestagram 글쓰기</h1>
+        <form action="{%url 'posts:new'%}" method="POST">
+        {% csrf_token %}
+            <div> 작성자 : </div>
+            <input type="text" name="author"/>
+            <div> 본문 : </div>
+            <textarea name="content"></textarea>
+            <div>
+                <button type="submit">포스팅</button>
+            </div>
+        </form>
+    </body>
+</html>
+
+
+

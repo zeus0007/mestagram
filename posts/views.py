@@ -1,44 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import Post
+from django.utils import timezone
 
 def index(request):
-    return render(request, 'posts/index.html', {
-        'posts' : [
-            {
-            'id':'1',
-            'author': 'zeus',
-            'content': '오늘은 즐거운 하루였다.',
-            'created_at': '1월 1일',
-            },
-            {
-            'id':'2',
-            'author': 'zeus',
-            'content': '벌써 한달이 가다니ㅜㅜ',
-            'created_at': '2월 1일',
-            },
-        ],
-    })
+    posts = Post.objects.all()
+    context= {'posts':posts}
+    return render(request, 'posts/index.html', context)
 
 def detail(request, post_id):
-    if post_id == 1:
-        context = {
-        'post' : 
-            {
-            'id':'1',
-            'author': 'zeus',
-            'content': '오늘은 즐거운 하루였다.',
-            'created_at': '1월 1일',
-            },
-        }
-
-    if post_id == 2 :
-        context = {
-        'post' : 
-            {
-            'id':'2',
-            'author': 'zeus',
-            'content': '벌써 한달이 가다니ㅜㅜ',
-            'created_at': '2월 1일',
-            }
-        }
+    post = Post.objects.get(id = post_id)
+    context = {'post':post}
     return render(request, 'posts/detail.html', context)
+
+def create(request):
+    return render(request, 'posts/create.html')
+
+def new(request):
+    new_post = Post(
+        author = request.POST['author'], 
+        content = request.POST['content'], 
+        created_at=timezone.now()
+        )
+    new_post.save()
+
+    return redirect('posts:detail', post_id=new_post.id)
+
+
     
